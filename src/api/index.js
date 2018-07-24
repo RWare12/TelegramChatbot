@@ -34,7 +34,7 @@ export default ({ config, db }) => {
 					}
 				]});
 				break;
-			case 'test':
+			case 'help.help':
 				return res.json({"fulfillmentMessages": [{
 					"quickReplies": {
 					"title": "Jokes, Cats, and Dogs",
