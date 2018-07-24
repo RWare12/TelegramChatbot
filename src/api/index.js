@@ -1,6 +1,8 @@
 import { version } from '../../package.json';
 import { Router } from 'express';
 import facets from './facets';
+const { TelegramClient } = require('messaging-api-telegram');
+const client = TelegramClient.connect('696494774:AAHCl0iDVjrlW9SJKMrBGYH0Wg2derP_UDI');
 
 export default ({ config, db }) => {
 	let api = Router();
@@ -38,11 +40,19 @@ export default ({ config, db }) => {
 				return res.json({"fulfillmentMessages": [{
 					"quickReplies": {
 					"title": "Jokes, Cats, and Dogs",
-					"quickReplies": ["Joke","Cat","Dog"]
+					"quickReplies": ["Joke","Cat","Dog","Push"]
 					},
 					"platform": "TELEGRAM"
 					}]
 				});			
+				break;
+			case 'push.message':
+				var ID = req.body.originalDetectIntentRequest.payload.data.message.from.id;
+				client.sendMessage(ID, 'Don\'t push so hard.', {
+					disable_web_page_preview: true,
+					disable_notification: true,
+				});
+				return res.json({'fulfillmentText':'Are you pushing me because you think my jokes are lame? Well they\'re not. You\'re lame.'});
 				break;
 		}
 	});
