@@ -20,8 +20,23 @@ export default ({ config, db }) => {
 
 	// callback url for 'RalphisBot'
 	api.post('/telegrambot', (req, res) => {
+		const data = req.body.queryResult.action;
 		var body = req.body;
 		console.log(body);
+
+		switch(data){
+			case 'test':
+			res.json({"fulfillmentMessages": [{
+				"quickReplies": {
+				"title": "Cats and Dogs",
+				"quickReplies": ["Cat","Dog"]
+				},
+				"platform": "TELEGRAM"
+				}]
+			})			
+			break;
+		}
+
 	});
 
 	return api;
