@@ -10,7 +10,7 @@ export default ({ config, db }) => {
 	// mount the facets resource
 	api.use('/facets', facets({ config, db }));
 
-	api.post('/telegrambot', (req, res) => {
+	api.post('/sendMessage', (req, res) => {
 		switch (req.body.queryResult.action) {
 			case 'cat.get':
 				return res.json({'fulfillmentMessages': [
